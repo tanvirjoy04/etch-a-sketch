@@ -22,6 +22,8 @@ function createNewDiv(line){
   let items = document.querySelectorAll(".square-div");
   items.forEach((item) => {
     item.addEventListener("mouseenter", () => {  
+      let op = item.style.opacity;
+      item.style.opacity = increaseOpacity(op);
       item.style.backgroundColor = randomColor();
     });
   });
@@ -57,4 +59,12 @@ function randomColor(){
   let b = Math.floor(Math.random() * 255);
   let RGB = `rgb(${r}, ${g}, ${b})`;
   return RGB;
+}
+
+//increase opacity
+
+function increaseOpacity(opacity){
+  if(opacity >= 1) return opacity;
+  increase = Number(opacity) + 0.1;
+  return increase.toFixed(1);
 }
