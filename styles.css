@@ -1,12 +1,43 @@
-.container{
-  display: flex;
+body{
+  text-align: center;
 }
 
-.container div{
-  border:1px solid black;
-  flex:1;
+.grid-square{
+    flex-basis: 640px;
+    aspect-ratio: 1;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 640px;
+    border: 1px solid black;
 }
 
 .container{
   display: flex;
+  justify-content: center;
+}
+
+
+.square-div {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    aspect-ratio: 1;
+    box-sizing: border-box; 
+}
+
+#grid-btn {
+  width: 160px;
+  border-radius: 4px;
+  font-size: large;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+}
+h1{
+  height:10px;
+  font-size: xxx-large;
 }

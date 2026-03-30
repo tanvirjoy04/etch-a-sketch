@@ -1,43 +1,60 @@
-const container = document.querySelector('.container');
+const gridSquare = document.querySelector('.grid-square');
+const initLine = 16;
 
-for(let j = 0; j < 16; j++){
-  const rowOne = document.createElement('div');
-  container.appendChild(rowOne);
-
-  for(let i = 0; i < 16; i++){
-    const newDiv = document.createElement('div');
-    newDiv.style.padding = '5px';
-    rowOne.appendChild(newDiv);
-
-    newDiv.addEventListener('mouseenter', function(){
-      newDiv.style.backgroundColor = 'aqua';
-    });
-  }
+function calcWidthPercent(line){
+  let widthPercentage = 100 / line;
+  return `${widthPercentage}%`;
 }
 
-
-const btn = document.getElementById('btn');
-btn.addEventListener('click', function(){
-  let input = prompt("Number of squares per side: (max 100)");
-  if(input <= 100){
-    const temp = document.querySelector('.container');
-    temp.innerHTML = '';
-
-    for(let b = 0; b < input; b++){
-      const line =  document.createElement('div');
-      container.appendChild(line);
-
-      for(let a = 0; a < input; a++){
-        const sq = document.createElement('div');
-        sq.style.padding = '5px';
-        line.appendChild(sq);
-        
-        sq.addEventListener('mouseenter', function(){
-        sq.style.backgroundColor = 'aqua';
-        });
-      }
-    }
-    
+function createNewDiv(line){
+  let grid = line ** 2;
+  let fragment = document.createDocumentFragment();
+  for(let i = 0; i < grid; i++){
+    const newDiv = document.createElement("div");
+    newDiv.classList.add("square-div");
+    newDiv.style.flexBasis = calcWidthPercent(line);
+    fragment.appendChild(newDiv);
   }
 
+  gridSquare.appendChild(fragment);
+
+  // add event listener to all Square-div
+  let items = document.querySelectorAll(".square-div");
+  items.forEach((item) => {
+    item.addEventListener("mouseenter", () => {  
+      item.style.backgroundColor = randomColor();
+    });
+  });
+
+}
+
+createNewDiv(initLine);
+
+function removeAll (items){
+  for(let item of items){
+    item.remove();
+  }
+} 
+
+const newGrid = document.getElementById('grid-btn');
+
+newGrid.addEventListener('click', function(){
+  let newLine = prompt("Enter new Line Grid Square Number: (1 - 100)");
+  if(newLine > 100 || newLine < 0 || !Number(newLine)) {
+    return alert("Please input a valid number");
+  }
+
+  let items = document.querySelectorAll(".square-div");
+  removeAll(items);
+  createNewDiv(newLine);
+  
 });
+
+//create random rgb color
+function randomColor(){
+  let r = Math.floor(Math.random() * 255);
+  let g = Math.floor(Math.random() * 255);
+  let b = Math.floor(Math.random() * 255);
+  let RGB = `rgb(${r}, ${g}, ${b})`;
+  return RGB;
+}
